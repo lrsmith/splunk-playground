@@ -1,0 +1,21 @@
+---
+splunk:
+  idxc:
+    label: docker-splunk-cluster
+    replication_factor: 1
+    replication_port: 9887
+    search_factor: 1
+    discoveryPass4SymmKey: dockersplunkcluster1234!
+    pass4SymmKey: dockersplunkcluster5678!
+    secret: dockersplunkcluster9012!
+  http_enableSSL: 1
+  http_enableSSL_cert: /mnt/certs/mySplunkWebCert.pem
+  http_enableSSL_privKey: /mnt/certs/mySplunkWebPrivateKey.key
+  http_enableSSL_privKey_password: mySplunkWebCert
+  s2s:
+    ca: /mnt/certs/myCACertificate.pem
+    cert: /mnt/certs/mySplunkWebCertificate.pem
+    enable: true
+    port: 9997
+    password: mySplunkWebCert
+    ssl: true

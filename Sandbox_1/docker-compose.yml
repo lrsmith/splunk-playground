@@ -1,0 +1,99 @@
+version: "3.6"
+
+networks:
+  splunknet:
+    driver: bridge
+    attachable: true
+
+services:
+  cm1:
+    networks:
+      splunknet:
+        aliases:
+          - cm1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: cm1
+    container_name: cm1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=adminadmin
+      - SPLUNK_CLUSTER_MASTER_URL=cm1
+      - SPLUNK_ROLE=splunk_cluster_master
+      - SPLUNK_LICENSE_URI
+      - SPLUNK_APPS_URL
+      - DEBUG=true
+    ports:
+      - 8000
+      - 8089
+    volumes:
+      - ./defaults/cm:/tmp/defaults
+      - ./certs:/mnt/certs
+
+  idx1:
+    networks:
+      splunknet:
+        aliases:
+          - idx1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: idx1
+    container_name: idx1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=adminadmin
+      - SPLUNK_CLUSTER_MASTER_URL=cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_LICENSE_URI
+      - SPLUNK_APPS_URL
+      - DEBUG=true
+    ports:
+      - 8000
+      - 8089
+    volumes:
+      - ./defaults/idx:/tmp/defaults
+      - ./certs:/mnt/certs
+
+  idx2:
+    networks:
+      splunknet:
+        aliases:
+          - idx2
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: idx2
+    container_name: idx2
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=adminadmin
+      - SPLUNK_CLUSTER_MASTER_URL=cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_LICENSE_URI
+      - SPLUNK_APPS_URL
+      - DEBUG=true
+    ports:
+      - 8000
+      - 8089
+    volumes:
+      - ./defaults/idx:/tmp/defaults
+      - ./certs:/mnt/certs
+
+  idx3:
+    networks:
+      splunknet:
+        aliases:
+          - idx3
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: idx3
+    container_name: idx3
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=adminadmin
+      - SPLUNK_CLUSTER_MASTER_URL=cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_LICENSE_URI
+      - SPLUNK_APPS_URL
+      - DEBUG=true
+    ports:
+      - 8000
+      - 8089
+    volumes:
+      - ./defaults/idx:/tmp/defaults
+      - ./certs:/mnt/certs
